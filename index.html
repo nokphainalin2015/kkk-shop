@@ -32,6 +32,8 @@ header{background:var(--red);color:var(--onred);padding:18px 16px 16px;position:
 .brand p{font-size:13px;opacity:.9}
 .info{max-width:900px;margin:12px auto 0;padding:0 16px;font-size:13px;color:var(--mute);display:flex;gap:8px;flex-wrap:wrap}
 .info span{background:var(--card);border:1px solid var(--line);border-radius:99px;padding:4px 10px}
+.info span.ready{color:#1a7f37;border-color:#1a7f37;font-weight:600}
+.rd{color:#1a7f37;font-weight:600}
 .grid{max-width:900px;margin:14px auto;padding:0 16px;display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
 @media(min-width:700px){.grid{grid-template-columns:repeat(3,1fr)}}
 .card{background:var(--card);border-radius:14px;overflow:hidden;text-align:left;box-shadow:0 1px 2px rgba(0,0,0,.05);position:relative}
@@ -87,7 +89,7 @@ textarea{background:var(--bg);color:var(--ink);width:100%;min-height:150px;borde
 </head>
 <body>
 <header><div class="brand"><div class="logo">ກຂຄ</div><div class="bt"><h1 id="shop"></h1><p id="tag"></p></div><a class="hbtn" id="hChat" target="_blank" rel="noopener">ແຊັດ</a></div></header>
-<div class="info"><span id="since"></span><span id="hours"></span></div>
+<div class="info"><span class="ready">✓ ສິນຄ້າພ້ອມສົ່ງ</span><span id="since"></span><span id="hours"></span></div>
 <main class="grid" id="grid"></main>
 <footer class="foot" id="foot"></footer>
 
@@ -115,7 +117,7 @@ function grid(){
     ${p.best?'<span class="tag">ຂາຍດີ</span>':p.old?'<span class="tag">ໂປຣ</span>':''}
     <img src="${p.photos[0]}" alt="${p.name}" loading="lazy">
     <div class="b"><div class="code">ລະຫັດ ${p.id}</div><h3>${p.name}</h3><div class="price">${fmt(p.price)}${p.old?`<s class="old">${fmt(p.old)}</s>`:""}${p.price2?`<span class="deal">ຊື້ 2 ໂຕ ${fmt(p.price2)}</span>`:""}${p.sp&&p.sp.length?`<span class="deal">${p.sizes.map((s,i)=>s+" "+fmt(p.sp[i])).join(" · ")}</span>`:""}</div>
-    <div class="dots">${p.colors.slice(0,6).map(c=>`<i class="dot" style="background:${c.hex}"></i>`).join("")}<span>${p.colors.length} ສີ · ${p.sizes.length===1?p.sizes[0]:p.sizes[0]+"-"+p.sizes[p.sizes.length-1]}</span></div></div>
+    <div class="dots">${p.colors.slice(0,6).map(c=>`<i class="dot" style="background:${c.hex}"></i>`).join("")}<span>${p.colors.length} ສີ · ${p.sizes.length===1?p.sizes[0]:p.sizes[0]+"-"+p.sizes[p.sizes.length-1]} · <b class="rd">ພ້ອມສົ່ງ</b></span></div></div>
   </button>`).join("");
   document.querySelectorAll(".card").forEach(c=>c.onclick=()=>openItem(c.dataset.id));
 }
