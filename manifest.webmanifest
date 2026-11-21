@@ -1,7 +1,7 @@
 {
   "name": "ກ ຂ ຄ online shop",
   "short_name": "ກ ຂ ຄ shop",
-  "description": "ເສື້ອຜ້າໄປການ ງາມທຸກແບບ",
+  "description": "ເສື້ອຜ້າໄປການ ງາມທຸກແບບ ດູດີທຸກຊົງ",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
