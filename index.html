@@ -24,6 +24,13 @@ header{background:var(--red);color:var(--onred);padding:18px 16px 16px;position:
 .logo{width:46px;height:46px;border-radius:50%;background:var(--onred);color:var(--red);display:grid;place-items:center;font-weight:700;font-size:15px;line-height:1;flex:none}
 .bt{flex:1;min-width:0}
 .hbtn{flex:none;border:1.5px solid var(--onred);color:var(--onred);text-decoration:none;border-radius:99px;padding:6px 14px;font-size:14px;font-weight:600}
+.hacts{display:flex;gap:6px;flex:none}
+.hbtn.sz{padding:6px 10px;font-size:13px;line-height:1.15;text-align:center}
+.hcart{position:relative;flex:none;width:40px;height:40px;border-radius:50%;background:var(--onred);color:var(--red);display:grid;place-items:center}
+.hcart svg{width:22px;height:22px}
+.hcart b{position:absolute;top:-4px;right:-4px;min-width:20px;height:20px;padding:0 5px;border-radius:99px;background:#1a7f37;color:#fff;font-size:12px;line-height:20px;text-align:center;border:2px solid var(--red)}
+.hcart b:empty{display:none}
+.brand h1,.brand p{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .ask{display:block;text-align:center;text-decoration:none;color:var(--red);border:1.5px solid var(--red);border-radius:12px;padding:11px;margin-top:10px;font-weight:600}
 .foot{max-width:900px;margin:8px auto 24px;padding:0 16px;font-size:13px;color:var(--mute);display:grid;gap:4px}
 .foot b{color:var(--ink)}
@@ -88,7 +95,7 @@ textarea{background:var(--bg);color:var(--ink);width:100%;min-height:150px;borde
 </style>
 </head>
 <body>
-<header><div class="brand"><div class="logo">ກຂຄ</div><div class="bt"><h1 id="shop"></h1><p id="tag"></p></div><a class="hbtn" id="hChat" target="_blank" rel="noopener">ແຊັດ</a></div></header>
+<header><div class="brand"><div class="logo">ກຂຄ</div><div class="bt"><h1 id="shop"></h1><p id="tag"></p></div><div class="hacts"><a class="hbtn sz" id="hChat" target="_blank" rel="noopener">ຖາມເບີ<br>ຂະໜາດ</a><button class="hcart" id="hCart" aria-label="ເບິ່ງກະຕ່າ"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h2l2.4 11h11l2-8H6.2"/><circle cx="9" cy="19.5" r="1.4"/><circle cx="17" cy="19.5" r="1.4"/></svg><b id="hN"></b></button></div></div></header>
 <div class="info"><span class="ready">✓ ສິນຄ້າພ້ອມສົ່ງ</span><span id="since"></span><span id="hours"></span></div>
 <main class="grid" id="grid"></main>
 <footer class="foot" id="foot"></footer>
@@ -107,7 +114,7 @@ let cart=[];
 $("#shop").textContent=CFG.shop;$("#tag").textContent=CFG.tagline;
 $("#since").textContent=CFG.since;$("#hours").textContent=CFG.hours;
 const waLink=t=>"https://wa.me/"+CFG.whatsapp+(t?"?text="+encodeURIComponent(t):"");
-if(CFG.whatsapp){$("#hChat").href=waLink("ສະບາຍດີ ກ ຂ ຄ ຂໍສອບຖາມແດ່");}else{$("#hChat").hidden=true}
+if(CFG.whatsapp){$("#hChat").href=waLink("ສະບາຍດີ ກ ຂ ຄ ຂໍຖາມເບີ ແລະ ຂະໜາດເສື້ອແດ່ (ລະຫັດ: ...) ຂ້ອຍສູງ ... ໜັກ ...");}else{$("#hChat").hidden=true}
 $("#foot").innerHTML=`<b>ຕິດຕໍ່ ${esc(CFG.shop)}</b><span>ໂທ ຫຼື WhatsApp: <b class="sel">${esc(CFG.phoneShow||"")}</b></span>${CFG.whatsapp?`<a href="${waLink("ສະບາຍດີ ກ ຂ ຄ ຂໍສອບຖາມແດ່")}" target="_blank" rel="noopener">ແຊັດທາງ WhatsApp</a>`:""}<span>${esc(CFG.hours)}</span>${CFG.address?`<span>ໜ້າຮ້ານ: ${esc(CFG.address)}</span>`:""}${CFG.mapUrl?`<a href="${esc(CFG.mapUrl)}" target="_blank" rel="noopener">ເປີດແຜນທີ່ Google Maps</a>`:""}`;
 
 function grid(){
@@ -158,8 +165,10 @@ function bar(){
   const n=cart.reduce((s,i)=>s+i.qty,0);
   $("#bar").classList.toggle("show",n>0);
   $("#barBtn").textContent=`ເບິ່ງກະຕ່າ (${n} ໂຕ) · ${fmt(total())}`;
+  $("#hN").textContent=n||"";
 }
 $("#barBtn").onclick=openCart;
+$("#hCart").onclick=()=>{if(!cart.length){toast("ກະຕ່າຍັງວ່າງ ເລືອກເສື້ອກ່ອນເດີ");return}openCart()};
 
 // ວິທີຈັດສົ່ງ ແບບດຽວກັບແອັບ nnz
 const DELIVERY=[
